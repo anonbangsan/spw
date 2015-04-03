@@ -1,7 +1,10 @@
-package f2.spw;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+//EXTEND CODE IMPORT
+import java.awt.Toolkit;
+import java.awt.Image;
 
 public class SpaceShip extends Sprite{
 
@@ -14,9 +17,12 @@ public class SpaceShip extends Sprite{
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(x, y, width, height);
-		
+            //ORGINALCODE g.setColor(Color.GREEN);
+            //ORGINALCODE g.fillRect(x, y, width, height);
+            
+        //EXTEND CODE DrawImage
+            Image img = Toolkit.getDefaultToolkit().getImage("sample.gif");
+            g.drawImage(img, x, y, width, height, null);	
 	}
 
 	public void move(int direction){
@@ -25,6 +31,15 @@ public class SpaceShip extends Sprite{
 			x = 0;
 		if(x > 400 - width)
 			x = 400 - width;
+	}
+	
+	//EXTEND CODE MOVE Y-AXIS for UP DOWN
+	public void move2(int direction){
+		y += (step * direction);
+		if(y < 0)
+			y = 0;
+		if(y > 600 - height)
+			y = 600 - height;
 	}
 
 }
