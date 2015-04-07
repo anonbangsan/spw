@@ -1,4 +1,4 @@
-package f2.spw;
+
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,27 +8,49 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import java.awt.Toolkit;
+import java.awt.Image;
+
 public class GamePanel extends JPanel {
 	
 	private BufferedImage bi;	
 	Graphics2D big;
+        private Image imgBg;
+        private Image imgHp;
+        
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 
 	public GamePanel() {
 		bi = new BufferedImage(400, 600, BufferedImage.TYPE_INT_ARGB);
 		big = (Graphics2D) bi.getGraphics();
-		big.setBackground(Color.BLACK);
+		//big.setBackground(Color.BLACK);
+                
+                //EXTEND CODE DrawImage
+                imgBg = Toolkit.getDefaultToolkit().getImage("background.jpg");
+                imgHp = Toolkit.getDefaultToolkit().getImage("hp.gif");
+                big.drawImage(imgBg, 0, 0, 400, 600,null);
+                big.drawImage(imgHp, 20, 5, 25, 25, null);
 	}
 
 	public void updateGameUI(GameReporter reporter){
-		big.clearRect(0, 0, 400, 600);
+		//ORGINALCODE big.clearRect(0, 0, 400, 600);
+                
+                //EXTEND CODE DrawImage Again
+                big.drawImage(imgBg, 0, 0, 400, 600,null);
+                big.drawImage(imgHp, 20, 5, 25, 25, null);
 		
-		big.setColor(Color.WHITE);		
-		big.drawString(String.format("%08d", reporter.getScore()), 300, 20);
+		big.setColor(Color.GREEN);		
+		big.drawString(String.format("Score:%08d", reporter.getScore()), 250, 20);
+                
+                //EXTEND CODE UI Report HP MaxScore
+                big.setColor(Color.RED);
+                big.drawString(String.format("%d", reporter.getHP()), 50, 20);
+                big.setColor(Color.YELLOW);
+                big.drawString(String.format("Max:%08d", reporter.getmaxScore()), 150, 20);
+                
 		for(Sprite s : sprites){
 			s.draw(big);
 		}
-		
 		repaint();
 	}
 

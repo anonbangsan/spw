@@ -31,7 +31,7 @@ public class Enemy extends Sprite{
 		//ORGINALCODE g.fillRect(x, y, width, height);
         
         //EXTEND CODE DrawImage
-                Image img = Toolkit.getDefaultToolkit().getImage("sample2.gif");
+                Image img = Toolkit.getDefaultToolkit().getImage("fireball.png");
                 g.drawImage(img, x, y, width, height, null);	
 		
 	}
