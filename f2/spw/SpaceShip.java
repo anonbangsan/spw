@@ -33,6 +33,7 @@ public class SpaceShip extends Sprite{
 			x = 400 - width;
 	}
 	
+        /* *04* */
 	//EXTEND CODE MOVE Y-AXIS for UP DOWN
 	public void move2(int direction){
 		y += (step * direction);
@@ -41,5 +42,6 @@ public class SpaceShip extends Sprite{
 		if(y > 600 - height)
 			y = 600 - height;
 	}
+        /* END*04* */
 
 }
