@@ -105,8 +105,10 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
+                        /* *05* */
                                 //EXTEND CODE Enemy Attack HP
                                 enemyAttackHP();
+                        /* END*05* */
 				//ORGINALCODE die();
 				//ORGINALCODE return;
 			}
@@ -174,8 +176,10 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	public void die(){
 		timer.stop();
+                /* *05* */
                 //EXTEND CODE SHOW SCORE Dialog
                 JOptionPane.showMessageDialog(null,"Score: " +score +" Points");
+                /* END*05* */
 	}
 	
 	void controlVehicle(KeyEvent e) {
@@ -211,12 +215,15 @@ public class GameEngine implements KeyListener, GameReporter{
         public void setScore(long score){
 		this.score = score;
 	}
+        /* *05* */
         public long getHP(){
                 return hp;
         }
+        /* END*05* */
         public void setHP(long hp){
                 this.hp = hp;
         }
+        /* *05* */
         private void enemyAttackHP(){
             hp -= 50;
             if(hp <= 0){
@@ -224,6 +231,7 @@ public class GameEngine implements KeyListener, GameReporter{
                 return;
             }
         }
+        /* END*05* */
         private void healHP(){
             hp += 200;
             return;

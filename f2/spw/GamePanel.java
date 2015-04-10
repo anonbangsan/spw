@@ -29,7 +29,9 @@ public class GamePanel extends JPanel {
                 imgBg = Toolkit.getDefaultToolkit().getImage("background.jpg");
                 imgHp = Toolkit.getDefaultToolkit().getImage("hp.gif");
                 big.drawImage(imgBg, 0, 0, 400, 600,null);
+                /* *05* */
                 big.drawImage(imgHp, 20, 5, 25, 25, null);
+                /* END*05* */
 	}
 
 	public void updateGameUI(GameReporter reporter){
@@ -37,14 +39,19 @@ public class GamePanel extends JPanel {
                 
                 //EXTEND CODE DrawImage Again
                 big.drawImage(imgBg, 0, 0, 400, 600,null);
+                
+                /* *05* */
                 big.drawImage(imgHp, 20, 5, 25, 25, null);
+                /* END*05* */
 		
 		big.setColor(Color.GREEN);		
 		big.drawString(String.format("Score:%08d", reporter.getScore()), 250, 20);
                 
                 //EXTEND CODE UI Report HP MaxScore
+                /* *05* */
                 big.setColor(Color.RED);
                 big.drawString(String.format("%d", reporter.getHP()), 50, 20);
+                /* END*05* */
                 big.setColor(Color.YELLOW);
                 big.drawString(String.format("Max:%08d", reporter.getmaxScore()), 150, 20);
                 
