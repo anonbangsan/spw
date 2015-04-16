@@ -19,8 +19,10 @@ public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+        /* *06* */
         //EXTEND Heal Item
         private ArrayList<Heal> heal = new ArrayList<Heal>();
+        /* END*06* */
         //EXTEND Boss Item
         private ArrayList<Boss> boss = new ArrayList<Boss>();
         
@@ -46,7 +48,9 @@ public class GameEngine implements KeyListener, GameReporter{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
                                 process();
+                                /* *06* */
                                 processHeal();
+                                /* END*06* */
                                 processBoss();
 			}
 		});
@@ -64,12 +68,14 @@ public class GameEngine implements KeyListener, GameReporter{
 		enemies.add(e);
 	}
         
+        /* *06* */
         //EXTEND Generate Heal Item
         private void generateHeal(){
 		Heal h = new Heal((int)(Math.random()*390), 30);
 		gp.sprites.add(h);
 		heal.add(h);
 	}
+        /* END*06* */
         
         //EXTEND Generate Boss Item
         private void generateBoss(){
@@ -114,6 +120,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 		}
 	}
+        /* *06* */
         //EXTEND Process Heal
         private void processHeal(){
 		if(Math.random() < difficulty/20){
@@ -143,7 +150,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 		}
 	}
-        
+        /* END*06* */
         //EXTEND Process Boss
         private void processBoss(){
 		if(Math.random() < difficulty/40){
@@ -232,10 +239,12 @@ public class GameEngine implements KeyListener, GameReporter{
             }
         }
         /* END*05* */
+        /* *06* */
         private void healHP(){
             hp += 200;
             return;
         }
+        /* END*06* */
         
         private void bossAttackHP(){
             hp -= 200;
