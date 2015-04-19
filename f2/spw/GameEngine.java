@@ -23,7 +23,7 @@ public class GameEngine implements KeyListener, GameReporter{
         //EXTEND Heal Item
         private ArrayList<Heal> heal = new ArrayList<Heal>();
         /* END*06* */
-        //EXTEND Boss Item
+        //EXTEND Boss Item//
         private ArrayList<Boss> boss = new ArrayList<Boss>();
         
 	private SpaceShip v;	
@@ -50,7 +50,7 @@ public class GameEngine implements KeyListener, GameReporter{
                                 process();
                                 /* *06* */
                                 processHeal();
-                                /* END*06* */
+                                /* END*06** */
                                 processBoss();
 			}
 		});
