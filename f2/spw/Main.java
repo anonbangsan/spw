@@ -40,13 +40,13 @@ public class Main {
 		GamePanel gp = new GamePanel();
 		GameEngine engine = new GameEngine(gp, v);
                          
-                /* *09* */
+                /*- *09* -*/
                 MenuListener menuListener = new MenuListener(menuExit,menuCredit,menuRestart,menuStop,engine);
                 menuExit.addActionListener(menuListener);
                 menuCredit.addActionListener(menuListener);
                 menuRestart.addActionListener(menuListener);
                 menuStop.addActionListener(menuListener);
-                /* END*09* */
+                /*- END*09* -*/
                 
 		frame.addKeyListener(engine);
 		frame.getContentPane().add(gp, BorderLayout.CENTER);
