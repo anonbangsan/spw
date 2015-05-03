@@ -52,8 +52,11 @@ public class GamePanel extends JPanel {
                 big.setColor(Color.RED);
                 big.drawString(String.format("%d", reporter.getHP()), 50, 20);
                 /* END*05* */
+                
+                /* *10* */
                 big.setColor(Color.YELLOW);
                 big.drawString(String.format("Max:%08d", reporter.getmaxScore()), 150, 20);
+                /* END*10* */
                 
 		for(Sprite s : sprites){
 			s.draw(big);

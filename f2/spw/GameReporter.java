@@ -7,5 +7,7 @@ public interface GameReporter {
         /* *05* */
         long getHP();
         /* END*05* */
+        /* *10* */
         long getmaxScore();
+        /* END*10* */
 }

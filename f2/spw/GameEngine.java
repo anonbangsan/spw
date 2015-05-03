@@ -23,8 +23,11 @@ public class GameEngine implements KeyListener, GameReporter{
         //EXTEND Heal Item
         private ArrayList<Heal> heal = new ArrayList<Heal>();
         /* END*06* */
+        
+        /* *07* */
         //EXTEND Boss Item//
         private ArrayList<Boss> boss = new ArrayList<Boss>();
+        /* END*07* */
         
 	private SpaceShip v;	
 	
@@ -35,7 +38,10 @@ public class GameEngine implements KeyListener, GameReporter{
         
         //EXTEND HP MAXSCORE
         private long hp = 1000;
+        
+        /* *10* */
         private long maxScore = 0;
+        /* END*10* */
 	
 	public GameEngine(GamePanel gp, SpaceShip v) {
 		this.gp = gp;
@@ -51,7 +57,9 @@ public class GameEngine implements KeyListener, GameReporter{
                                 /* *06* */
                                 processHeal();
                                 /* END*06** */
+                                /* *07* */
                                 processBoss();
+                                /* END*07* */
 			}
 		});
 		timer.setRepeats(true);
@@ -76,14 +84,16 @@ public class GameEngine implements KeyListener, GameReporter{
 		heal.add(h);
 	}
         /* END*06* */
-        
+        /* *07* */
         //EXTEND Generate Boss Item
         private void generateBoss(){
 		Boss b = new Boss((int)(Math.random()*390), 30);
 		gp.sprites.add(b);
 		boss.add(b);
 	}
+        /* END*07* */
 	
+        
 	private void process(){
 		if(Math.random() < difficulty){
 			generateEnemy();
@@ -99,8 +109,10 @@ public class GameEngine implements KeyListener, GameReporter{
 				gp.sprites.remove(e);
 				score += 100;
                                 
+                                /* *10* */
                                 //EXTEND CODE Max Score calulation
                                 calmaxScore();
+                                /* END*10* */
 			}
 		}
 		
@@ -113,6 +125,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			if(er.intersects(vr)){
                         /* *05* */
                                 //EXTEND CODE Enemy Attack HP
+                                e.proceed2(); //Alive = false
                                 enemyAttackHP();
                         /* END*05* */
 				//ORGINALCODE die();
@@ -120,6 +133,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 		}
 	}
+        
         /* *06* */
         //EXTEND Process Heal
         private void processHeal(){
@@ -146,11 +160,13 @@ public class GameEngine implements KeyListener, GameReporter{
 			hr = h.getRectangle();
 			if(hr.intersects(vr)){
                                 //EXTEND CODE Heal HP
+                                h.proceed2(); //Alive = false
                                 healHP();
 			}
 		}
 	}
         /* END*06* */
+        /* *07* */
         //EXTEND Process Boss
         private void processBoss(){
 		if(Math.random() < difficulty/40){
@@ -176,10 +192,12 @@ public class GameEngine implements KeyListener, GameReporter{
 			br = b.getRectangle();
 			if(br.intersects(vr)){
                                 //EXTEND CODE Boss Attack HP
+                                b.proceed2(); //Alive = false
 				bossAttackHP();
 			}
 		}
 	}
+        /* END*07* */
 	
 	public void die(){
 		timer.stop();
@@ -213,7 +231,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			break;
 		}
 	}
-
+        @Override
 	public long getScore(){
 		return score;
 	}
@@ -240,6 +258,7 @@ public class GameEngine implements KeyListener, GameReporter{
         }
         /* END*05* */
         /* *06* */
+        @Override
         private void healHP(){
             hp += 200;
             return;
@@ -253,13 +272,16 @@ public class GameEngine implements KeyListener, GameReporter{
                 return;
             }
         }
+        /* *10* */
         //EXTEND CODE ge maxScore, Max Score calulation
         private void calmaxScore(){
             maxScore = Math.max(maxScore,score);
         }
+        @Override
         public long getmaxScore(){
             return maxScore;
         }
+        /* END*10* */
         
 	
 	@Override
