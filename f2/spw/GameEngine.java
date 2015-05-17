@@ -258,7 +258,7 @@ public class GameEngine implements KeyListener, GameReporter{
         }
         /* END*05* */
         /* *06* */
-        @Override
+        
         private void healHP(){
             hp += 200;
             return;
@@ -273,6 +273,18 @@ public class GameEngine implements KeyListener, GameReporter{
             }
         }
         /* *10* */
+        
+        public void clear(){
+            gp.sprites.clear();
+            gp.sprites.add(v);
+            v.setPosition();
+            enemies.clear();
+            heal.clear();
+            boss.clear();
+        }
+        
+        
+        
         //EXTEND CODE ge maxScore, Max Score calulation
         private void calmaxScore(){
             maxScore = Math.max(maxScore,score);
