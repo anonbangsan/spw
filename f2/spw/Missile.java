@@ -1,4 +1,4 @@
-
+/* *EXTRA CREDITS* */
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -7,14 +7,14 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.Image;
 
-public class Enemy extends Sprite{
+public class Missile extends Sprite{
 	public static final int Y_TO_FADE = 400;
 	public static final int Y_TO_DIE = 600;
 	
 	private int step = 12;
 	private boolean alive = true;
 	
-	public Enemy(int x, int y) {
+	public Missile(int x, int y) {
 		super(x, y, 80, 80);
 		
 	}
@@ -31,13 +31,13 @@ public class Enemy extends Sprite{
 		//ORGINALCODE g.fillRect(x, y, width, height);
         
         //EXTEND CODE DrawImage
-                Image img = Toolkit.getDefaultToolkit().getImage("fireball.png");
+                Image img = Toolkit.getDefaultToolkit().getImage("missile.png");
                 g.drawImage(img, x, y, width, height, null);	
 		
 	}
 
 	public void proceed(){
-		y += step;
+		y -= step;
 		if(y > Y_TO_DIE){
 			alive = false;
 		}
@@ -51,3 +51,4 @@ public class Enemy extends Sprite{
 		return alive;
 	}
 }
+/* END*EXTRA CREDITS* */

@@ -19,6 +19,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+        
+        /* *EXTRA CREDITS* */
+        //EXTEND Missile Item
+        private ArrayList<Missile> missile = new ArrayList<Missile>();
+        /* END*EXTRA CREDITS* */
+        
         /* *06* */
         //EXTEND Heal Item
         private ArrayList<Heal> heal = new ArrayList<Heal>();
@@ -54,9 +60,15 @@ public class GameEngine implements KeyListener, GameReporter{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
                                 process();
+                                
+                                /* *EXTRA CREDITS* */
+                                processMissile();
+                                /* END*EXTRA CREDITS* */
+                                
                                 /* *06* */
                                 processHeal();
                                 /* END*06** */
+                                
                                 /* *07* */
                                 processBoss();
                                 /* END*07* */
@@ -76,6 +88,15 @@ public class GameEngine implements KeyListener, GameReporter{
 		enemies.add(e);
 	}
         
+        /* *EXTRA CREDITS* */
+        //EXTEND Generate Missile Item
+        private void generateMissile(){
+		Missile m = new Missile(v.x,v.y);
+		gp.sprites.add(m);
+		missile.add(m);
+	}
+        /* END*EXTRA CREDITS* */
+        
         /* *06* */
         //EXTEND Generate Heal Item
         private void generateHeal(){
@@ -93,7 +114,6 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
         /* END*07* */
 	
-        
 	private void process(){
 		if(Math.random() < difficulty){
 			generateEnemy();
@@ -133,6 +153,51 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 		}
 	}
+        
+        /* *EXTRA CREDITS* */
+        //EXTEND Process Missile
+        private void processMissile(){
+	
+		Iterator<Missile> m_iter = missile.iterator();
+		while(m_iter.hasNext()){
+			Missile m = m_iter.next();
+			m.proceed();
+			
+			if(!m.isAlive()){
+				m_iter.remove();
+				gp.sprites.remove(m);
+			}
+		}
+		
+		gp.updateGameUI(this);
+		
+		Rectangle2D.Double er,mr,br;
+		
+		for(Enemy e : enemies){
+			er = e.getRectangle();
+			
+			for(Missile m : missile){
+				mr = m.getRectangle();
+				if(er.intersects(mr)){
+					e.proceed2(); //Alive's enemies = false
+					m.proceed2(); //Alive's missile = false
+				}
+			}
+		}
+		
+		for(Boss b : boss){
+			br = b.getRectangle();
+			
+			for(Missile m : missile){
+				mr = m.getRectangle();
+				if(br.intersects(mr)){
+					b.proceed2(); //Alive's boss = false
+					m.proceed2(); //Alive's missile = false
+				}
+			}
+		}
+	}
+        /* END*EXTRA CREDITS* */
         
         /* *06* */
         //EXTEND Process Heal
@@ -229,6 +294,12 @@ public class GameEngine implements KeyListener, GameReporter{
 		case KeyEvent.VK_D:
 			difficulty += 0.1;
 			break;
+                /* *EXTRA CREDITS* */
+                //EXTEND CODE KeyEvent SPACE For Generate Missile 
+                case KeyEvent.VK_SPACE:
+			generateMissile();
+			break;
+                /* END*EXTRA CREDITS* */
 		}
 	}
         @Override
@@ -241,6 +312,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		this.score = score;
 	}
         /* *05* */
+        @Override
         public long getHP(){
                 return hp;
         }
@@ -250,7 +322,7 @@ public class GameEngine implements KeyListener, GameReporter{
         }
         /* *05* */
         private void enemyAttackHP(){
-            hp -= 50;
+            hp -= 200;
             if(hp <= 0){
                 die();
                 return;
@@ -266,14 +338,13 @@ public class GameEngine implements KeyListener, GameReporter{
         /* END*06* */
         
         private void bossAttackHP(){
-            hp -= 200;
+            hp -= 500;
             if(hp <= 0){
                 die();
                 return;
             }
         }
-        /* *10* */
-        
+        //EXTEND CODE clear list to Report
         public void clear(){
             gp.sprites.clear();
             gp.sprites.add(v);
@@ -281,9 +352,10 @@ public class GameEngine implements KeyListener, GameReporter{
             enemies.clear();
             heal.clear();
             boss.clear();
+            missile.clear();
         }
         
-        
+        /* *10* */
         
         //EXTEND CODE ge maxScore, Max Score calulation
         private void calmaxScore(){
